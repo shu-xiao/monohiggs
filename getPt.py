@@ -3,8 +3,8 @@ import glob
 import errno
 from ROOT import TGraph, TFile, TCanvas, TH2F, gStyle
 from ROOT import TGraph2D, TGaxis, TH1F, TH1, TString, TLegend
+from ROOT import TColor, gPad
 from array import array
-from ROOT import TColor
 import os
 import csv
 
@@ -13,6 +13,11 @@ hApathList = ['Zp2HDM_bb_MZp600_MA0300_tanbeta1_0_MDM100.lhe','Zp2HDM_bb_MZp1400
 hApathList_5 = ['Zp2HDM_bb_MZp600_MA0300_tanbeta5_0_MDM100.lhe','Zp2HDM_bb_MZp1400_MA0300_tanbeta5_0_MDM100.lhe','Zp2HDM_bb_MZp1400_MA0500_tanbeta5_0_MDM100.lhe']
 legtext = ['M_{Zp}=600 GeV, M_{A0}=300 GeV, tan#beta=1.0','M_{Zp}=1400 GeV, M_{A0}=300 GeV, tan#beta=1.0','M_{Zp}=1400 GeV, M_{A0}=500 GeV, tan#beta=1.0']
 legtext_5 = ['M_{Zp}=600 GeV, M_{A0}=300 GeV, tan#beta=5.0','M_{Zp}=1400 GeV, M_{A0}=300 GeV, tan#beta=5.0','M_{Zp}=1400 GeV, M_{A0}=500 GeV, tan#beta=5.0']
+
+hApath_barList = ['ZpBaryonic_bb_MZp1000_gq25_MDM500.lhe','ZpBaryonic_bb_MZp1000_gq25_MDM100.lhe','ZpBaryonic_bb_MZp1000_gq25_MDM1.lhe',\
+        'ZpBaryonic_bb_MZp500_gq25_MDM1.lhe','ZpBaryonic_bb_MZp100_gq25_MDM1.lhe','ZpBaryonic_bb_MZp10_gq25_MDM1.lhe']
+legtext_bar = ['M_{Zp}=1000 GeV,M_{#chi}=500 GeV','M_{Zp}=1000 GeV,M_{#chi}=100 GeV','M_{Zp}=1000 GeV,M_{#chi}=1 GeV','M_{Zp}=500 GeV,M_{#chi}=1 GeV',\
+        'M_{Zp}=100 GeV,M_{#chi}=1 GeV','M_{Zp}=10 GeV,M_{#chi}=1 GeV']
 hA_files = glob.glob(hApath) 
 class fourVect():
     def __init__(self,px=0,py=0):
@@ -39,6 +44,8 @@ def getPtList(name):
 def main():
     gStyle.SetOptStat(0)
     c1 = TCanvas('c1','c1',3)
+    gPad.SetTickx()
+    gPad.SetTicky()
     c1.SetLeftMargin(0.12)
     h_frame = TH1F('frame','',50,0,1000)
     h_frame.SetXTitle('higgs P_{T} (GeV)')
@@ -50,6 +57,10 @@ def main():
     for i in range(6): 
         h_higgsPtList.append(TH1F('h_higgsPt_'+str(i),'',50,0,1000))
         h_higgsPtList[i].SetLineWidth(2)
+    h_higgsPt_BarList = []
+    for i in range(6):
+        h_higgsPt_BarList.append(TH1F('h_higgsPt_Baryonic_'+str(i),'',40,0,800))
+        h_higgsPt_BarList[i].SetLineWidth(2)
     ## test code 
     ivVectList = getPtList(hApath)
     for fourV in ivVectList:
@@ -57,7 +68,8 @@ def main():
 
     
     ## loop all combination
-    leg = TLegend(0.4,0.6,0.9,0.9)
+    leg = TLegend(0.32,0.57,0.87,0.87)
+    leg.SetBorderSize(0)
     for i in range(3):
         ivVectList = getPtList(hApathList[i])
         h_higgsPtList[i].SetLineColor(87+4*i)
@@ -76,6 +88,24 @@ def main():
     #h_higgsPt.Draw('histsame')
     for i in range(6): h_higgsPtList[i].Draw('histsame')
     leg.Draw()
-    c1.Print('test.pdf')
+    c1.Print('Zp2HDM_higgsPt.pdf')
+    
+    ## Baryonic
+    h_frame.SetMaximum(2500)
+    h_frame.SetAxisRange(0., 750.,"X")
+    leg.Clear() 
+    for i in range(6):
+        ivVectList = getPtList('BaryonicFile/'+hApath_barList[i])
+        h_higgsPt_BarList[i].SetLineColor(99-3*i)
+        leg.AddEntry(h_higgsPt_BarList[i],legtext_bar[i])
+        for fourV in ivVectList:
+            h_higgsPt_BarList[i].Fill(fourV.pt)
+
+    h_frame.Draw('hist')
+    for i in range(5,-1,-1):h_higgsPt_BarList[i].Draw('histsame')
+    leg.Draw()
+    c1.Print('Baryonic_higgsPt.pdf')
+
+
 if __name__ == "__main__":
     main()
