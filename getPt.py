@@ -8,7 +8,7 @@ from array import array
 import os
 import csv
 
-hApath = 'events_presys.lhe'
+#hApath = 'events_presys.lhe'
 hApathList = ['Zp2HDM_bb_MZp600_MA0300_tanbeta1_0_MDM100.lhe','Zp2HDM_bb_MZp1400_MA0300_tanbeta1_0_MDM100.lhe','Zp2HDM_bb_MZp1400_MA0500_tanbeta1_0_MDM100.lhe']
 hApathList_5 = ['Zp2HDM_bb_MZp600_MA0300_tanbeta5_0_MDM100.lhe','Zp2HDM_bb_MZp1400_MA0300_tanbeta5_0_MDM100.lhe','Zp2HDM_bb_MZp1400_MA0500_tanbeta5_0_MDM100.lhe']
 legtext = ['M_{Zp}=600 GeV, M_{A0}=300 GeV, tan#beta=1.0','M_{Zp}=1400 GeV, M_{A0}=300 GeV, tan#beta=1.0','M_{Zp}=1400 GeV, M_{A0}=500 GeV, tan#beta=1.0']
@@ -18,7 +18,7 @@ hApath_barList = ['ZpBaryonic_bb_MZp1000_gq25_MDM500.lhe','ZpBaryonic_bb_MZp1000
         'ZpBaryonic_bb_MZp500_gq25_MDM1.lhe','ZpBaryonic_bb_MZp100_gq25_MDM1.lhe','ZpBaryonic_bb_MZp10_gq25_MDM1.lhe']
 legtext_bar = ['M_{Zp}=1000 GeV,M_{#chi}=500 GeV','M_{Zp}=1000 GeV,M_{#chi}=100 GeV','M_{Zp}=1000 GeV,M_{#chi}=1 GeV','M_{Zp}=500 GeV,M_{#chi}=1 GeV',\
         'M_{Zp}=100 GeV,M_{#chi}=1 GeV','M_{Zp}=10 GeV,M_{#chi}=1 GeV']
-hA_files = glob.glob(hApath) 
+#hA_files = glob.glob(hApath) 
 class fourVect():
     def __init__(self,px=0,py=0):
         self.px = px
@@ -50,7 +50,7 @@ def main():
     h_frame = TH1F('frame','',50,0,1000)
     h_frame.SetXTitle('higgs P_{T} (GeV)')
     h_frame.SetYTitle('A.U.')
-    h_frame.SetMaximum(4000)
+    h_frame.SetMaximum(0.4)
 
     h_higgsPt = TH1F('h_higgsPt','h_higgsPt',50,0,1000)
     h_higgsPtList = []
@@ -62,10 +62,11 @@ def main():
         h_higgsPt_BarList.append(TH1F('h_higgsPt_Baryonic_'+str(i),'',40,0,800))
         h_higgsPt_BarList[i].SetLineWidth(2)
     ## test code 
+    '''
     ivVectList = getPtList(hApath)
     for fourV in ivVectList:
         h_higgsPt.Fill(fourV.pt)
-
+    '''
     
     ## loop all combination
     leg = TLegend(0.32,0.57,0.87,0.87)
@@ -86,12 +87,12 @@ def main():
     
     h_frame.Draw('hist')
     #h_higgsPt.Draw('histsame')
-    for i in range(6): h_higgsPtList[i].Draw('histsame')
+    for i in range(6): h_higgsPtList[i].DrawNormalized('histsame')
     leg.Draw()
     c1.Print('Zp2HDM_higgsPt.pdf')
     
     ## Baryonic
-    h_frame.SetMaximum(2500)
+    h_frame.SetMaximum(0.25)
     h_frame.SetAxisRange(0., 750.,"X")
     leg.Clear() 
     for i in range(6):
@@ -102,7 +103,7 @@ def main():
             h_higgsPt_BarList[i].Fill(fourV.pt)
 
     h_frame.Draw('hist')
-    for i in range(5,-1,-1):h_higgsPt_BarList[i].Draw('histsame')
+    for i in range(5,-1,-1):h_higgsPt_BarList[i].DrawNormalized('histsame')
     leg.Draw()
     c1.Print('Baryonic_higgsPt.pdf')
 
