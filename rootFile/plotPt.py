@@ -25,11 +25,14 @@ def main():
     gPad.SetTicky()
     c1.SetLeftMargin(0.12)
     h_frame = TH1F('frame','',50,0,1000)
-    h_frame.SetXTitle('P^{miss}_{T} (GeV)')
+    h_frame.SetXTitle('P^{miss}_{T} [GeV]')
     h_frame.SetYTitle('Arbitrary units')
     h_frame.SetMaximum(0.4)
-    info_zp2HDM = TLatex(0,0.405,'CMS, 35.9 fb^{-1} (13 TeV)')
+    info_zp2HDM = TLatex(0,0.405,'CMS')
+    info_zp2HDM_2 = TLatex(1000,0.405,'35.9 fb^{-1} (13 TeV)')
     info_zp2HDM.SetTextSize(0.03)
+    info_zp2HDM_2.SetTextSize(0.03)
+    info_zp2HDM_2.SetTextAlign(31)
     
     # Zp-2HDM
     h_higgsPtList = []
@@ -53,6 +56,7 @@ def main():
     for i in range(6): h_higgsPtList[i].DrawNormalized('histsame')
     leg.Draw()
     info_zp2HDM.Draw()
+    info_zp2HDM_2.Draw()
     c1.Print('Zp2HDM_higgsPt.pdf')
     f.Close()
     
@@ -60,8 +64,11 @@ def main():
     h_frame.SetMaximum(0.25)
     h_frame.SetAxisRange(0., 750.,"X")
     leg.Clear() 
-    info_bar = TLatex(0,0.255,'CMS, 35.9 fb^{-1} (13 TeV)')
-    info_bar.SetTextSize(0.04)
+    info_bar = TLatex(0,0.255,'CMS')
+    info_bar_2 = TLatex(750,0.255,'35.9 fb^{-1} (13 TeV)')
+    info_bar.SetTextSize(0.03)
+    info_bar_2.SetTextSize(0.03)
+    info_bar_2.SetTextAlign(31)
 
     kOrange = 800
     colorList = [kOrange-4,kOrange-1,kOrange+3,70,65,55]
@@ -81,6 +88,7 @@ def main():
     for i in range(5,-1,-1):h_higgsPt_BarList[i].DrawNormalized('histsame')
     leg.Draw()
     info_bar.Draw()
+    info_bar_2.Draw()
     c1.Print('Baryonic_higgsPt.pdf')
     f.Close()
 
