@@ -9,12 +9,12 @@ import os
 import csv
 
 #hApath = 'events_presys.lhe'
-legtext = ['M_{Zp}=600 GeV, M_{A0}=300 GeV, tan#beta=1.0','M_{Zp}=1400 GeV, M_{A0}=300 GeV, tan#beta=1.0','M_{Zp}=1400 GeV, M_{A0}=500 GeV, tan#beta=1.0']
-legtext_5 = ['M_{Zp}=600 GeV, M_{A0}=300 GeV, tan#beta=5.0','M_{Zp}=1400 GeV, M_{A0}=300 GeV, tan#beta=5.0','M_{Zp}=1400 GeV, M_{A0}=500 GeV, tan#beta=5.0']
+legtext = ["M_{Z'}=600 GeV, M_{A0}=300 GeV, tan#beta=1.0","M_{Z'}=1400 GeV, M_{A0}=300 GeV, tan#beta=1.0","M_{Z'}=1400 GeV, M_{A0}=500 GeV, tan#beta=1.0"]
+legtext_5 = ["M_{Z'}=600 GeV, M_{A0}=300 GeV, tan#beta=5.0","M_{Z'}=1400 GeV, M_{A0}=300 GeV, tan#beta=5.0","M_{Z'}=1400 GeV, M_{A0}=500 GeV, tan#beta=5.0"]
 histName_zp2HDM = ['missPt_MZp600_MA0300_tb1','missPt_MZp1400_MA0300_tb1','missPt_MZp1400_MA0500_tb1','missPt_MZp600_MA0300_tb5','missPt_MZp1400_MA0300_tb5','missPt_MZp1400_MA0500_tb5']
 
-legtext_bar = ['M_{Zp}=1000 GeV,M_{#chi}=500 GeV','M_{Zp}=1000 GeV,M_{#chi}=100 GeV','M_{Zp}=1000 GeV,M_{#chi}=1 GeV','M_{Zp}=500 GeV,M_{#chi}=1 GeV',\
-        'M_{Zp}=100 GeV,M_{#chi}=1 GeV','M_{Zp}=10 GeV,M_{#chi}=1 GeV']
+legtext_bar = ["M_{Z'}=1000 GeV,M_{#chi}=500 GeV","M_{Z'}=1000 GeV,M_{#chi}=100 GeV","M_{Z'}=1000 GeV,M_{#chi}=1 GeV","M_{Z'}=500 GeV,M_{#chi}=1 GeV",\
+        "M_{Z'}=100 GeV,M_{#chi}=1 GeV","M_{Z'}=10 GeV,M_{#chi}=1 GeV"]
 histName_bar = ['missPt_MZp1000_MDM500','missPt_MZp1000_MDM100','missPt_MZp1000_MDM1','missPt_MZp500_MDM1','missPt_MZp100_MDM1','missPt_MZp10_MDM1']
 #hA_files = glob.glob(hApath) 
 
