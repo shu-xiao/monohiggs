@@ -3,7 +3,7 @@ import glob
 import errno
 from ROOT import TGraph, TFile, TCanvas, TH2F, gStyle
 from ROOT import TGraph2D, TGaxis, TH1F, TH1, TString, TLegend
-from ROOT import TColor, gPad
+from ROOT import TColor, gPad, TLatex
 from array import array
 import os
 import csv
@@ -96,6 +96,11 @@ def main():
     colorList = [95,91,87,61,65,69] 
     #colorList = [61,95,65,91,69,87] 
     ## Baryonic
+    info_bar = TLatex(0,0.255,'CMS')
+    info_bar_2 = TLatex(750,0.255,'35.9 fb^{-1} (13 TeV)')
+    info_bar.SetTextSize(0.03)
+    info_bar_2.SetTextSize(0.03)
+    info_bar_2.SetTextAlign(31)
     h_frame.SetMaximum(0.25)
     h_frame.SetAxisRange(0., 750.,"X")
     leg.Clear() 
@@ -110,6 +115,8 @@ def main():
     h_frame.Draw('hist')
     for i in range(5,-1,-1):h_higgsPt_BarList[i].DrawNormalized('histsame')
     leg.Draw()
+    info_bar.Draw()
+    info_bar_2.Draw()
     c1.Print('Baryonic_higgsPt.pdf')
     f = TFile('rootFile/Zp2HDM_missPt.root','recreate')
     for i in range(6):
