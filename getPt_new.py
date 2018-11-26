@@ -49,12 +49,12 @@ def main():
     leg.SetBorderSize(0)
     for j in range(3):
         i = 2*j
-        text = 'M_{Zp} = '+str(zplist[i])+' GeV, M_{A0} = '+str(a0list[i])+' GeV'
+        text = 'M_{Z\'} = '+str(zplist[i])+' GeV, M_{A} = '+str(a0list[i])+' GeV'
         leg.AddEntry(h_higgsPtList[i],text)
     
     for j in range(3):
         i = 2*j+1
-        text = 'M_{Zp} = '+str(zplist[i])+' GeV, M_{A0} = '+str(a0list[i])+' GeV'
+        text = 'M_{Z\'} = '+str(zplist[i])+' GeV, M_{A} = '+str(a0list[i])+' GeV'
         leg.AddEntry(h_higgsPtList[i],text)
     
     h_frame.Draw('hist')

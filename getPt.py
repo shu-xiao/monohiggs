@@ -17,8 +17,8 @@ histName_zp2HDM = ['missPt_MZp600_MA0300_tb1','missPt_MZp1400_MA0300_tb1','missP
 
 hApath_barList = ['ZpBaryonic_bb_MZp1000_gq25_MDM500.lhe','ZpBaryonic_bb_MZp1000_gq25_MDM100.lhe','ZpBaryonic_bb_MZp1000_gq25_MDM1.lhe',\
         'ZpBaryonic_bb_MZp500_gq25_MDM1.lhe','ZpBaryonic_bb_MZp100_gq25_MDM1.lhe','ZpBaryonic_bb_MZp10_gq25_MDM1.lhe']
-legtext_bar = ['M_{Zp}=1000 GeV,M_{#chi}=500 GeV','M_{Zp}=1000 GeV,M_{#chi}=100 GeV','M_{Zp}=1000 GeV,M_{#chi}=1 GeV','M_{Zp}=500 GeV,M_{#chi}=1 GeV',\
-        'M_{Zp}=100 GeV,M_{#chi}=1 GeV','M_{Zp}=10 GeV,M_{#chi}=1 GeV']
+legtext_bar = ['M_{Z\'}=1000 GeV,M_{#chi}=500 GeV','M_{Z\'}=1000 GeV,M_{#chi}=100 GeV','M_{Z\'}=1000 GeV,M_{#chi}=1 GeV','M_{Z\'}=500 GeV,M_{#chi}=1 GeV',\
+        'M_{Z\'}=100 GeV,M_{#chi}=1 GeV','M_{Z\'}=10 GeV,M_{#chi}=1 GeV']
 histName_bar = ['missPt_MZp1000_MDM500','missPt_MZp1000_MDM100','missPt_MZp1000_MDM1','missPt_MZp500_MDM1','missPt_MZp100_MDM1','missPt_MZp10_MDM1']
 #hA_files = glob.glob(hApath) 
 class fourVect():
@@ -93,13 +93,16 @@ def main():
     leg.Draw()
     c1.Print('Zp2HDM_higgsPt.pdf')
     
+    colorList = [95,91,87,61,65,69] 
+    #colorList = [61,95,65,91,69,87] 
     ## Baryonic
     h_frame.SetMaximum(0.25)
     h_frame.SetAxisRange(0., 750.,"X")
     leg.Clear() 
     for i in range(6):
         ivVectList = getPtList('BaryonicFile/'+hApath_barList[i])
-        h_higgsPt_BarList[i].SetLineColor(90-6*i)
+        h_higgsPt_BarList[i].SetLineColor(colorList[i])
+        #h_higgsPt_BarList[i].SetLineColor(90-6*i)
         leg.AddEntry(h_higgsPt_BarList[i],legtext_bar[i])
         for fourV in ivVectList:
             h_higgsPt_BarList[i].Fill(fourV.pt)
