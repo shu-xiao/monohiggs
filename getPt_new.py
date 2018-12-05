@@ -34,6 +34,7 @@ def main():
     colorList = [61,95,65,91,69,87] 
     for i in range(6):
         hist = rootfilelist[i].Get('h_higgsPt')
+        hist.SetName('h_higgsPt_MZp'+str(zplist[i])+'_MA0'+str(a0list[i]))
         h_higgsPtList.append(hist)
         h_higgsPtList[i].SetLineWidth(2)
         h_higgsPtList[i].SetLineColor(colorList[i])
@@ -65,13 +66,14 @@ def main():
     info_bar_3.Draw()
     c1.Print('Zp2HDM_higgsPt_new.pdf')
     
+    '''
     f = TFile('rootFile/Zp2HDM_missPt_new.root','recreate')
     for i in range(6):
         h_higgsPtList[i].SetLineColor(1)
         h_higgsPtList[i].Write()
     
     f.Close()
-    
+    '''
 
 
 if __name__ == "__main__":
